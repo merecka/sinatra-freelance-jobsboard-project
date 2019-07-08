@@ -1,0 +1,10 @@
+<h1>Welcome, <%=@user.user_name.capitalize%></h1><br>
+
+<h3>Here is your info:</h3><br>
+
+<p>User Name: <%=@user.user_name%></p>
+<p>Email: <%=@user.email%></p><br><br>
+
+<form action="/logout" method="GET">
+    <input type="submit" value="Logout">
+</form>

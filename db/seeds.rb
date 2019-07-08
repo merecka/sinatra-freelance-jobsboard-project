@@ -1,0 +1,6 @@
+Job.create(:title => "Web Developer", :job_hours => "Full-time", :job_description => "My first job!", :salary => 100000)
+Job.create(:title => "JavaScript Developer", :job_hours => "Full-time", :job_description => "A great job!", :salary => 150000)
+Owner.create(:owner_name => "Facebook", :email => "ceo@facebook.com", :password => "password")
+Owner.create(:owner_name => "Microsoft", :email => "gates@microsoft.com", :password => "password")
+User.create(:user_name => "Alex", :email => "alex@test.com", :password => "password")
+User.create(:user_name => "Bob", :email => "bob@test.com", :password => "password")
