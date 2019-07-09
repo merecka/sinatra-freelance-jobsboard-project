@@ -1,6 +1,6 @@
 <% if Helpers.is_logged_in?(session) && session[:user_id] != nil%>
 
-<h1>Welcome, <%=@user.user_name.capitalize%></h1><br>
+<h1>Welcome, <%=@user.user_name.capitalize%>!</h1><br>
 
 <h3>Your Account Info:</h3><br>
 
@@ -14,11 +14,21 @@
 <h2>Here are the Jobs you've applied to:</h2>
 <%@user.jobs.each do |job|%>
 	<p>Job Title:  <%=job.title%></p>
+	<p>Company:  <%=job.owner.owner_name%>
 	<p>Job Type:   <%=job.job_hours%></p>
 	<p>Job Description:  <%=job.job_description%></p>
 	<p>Salary:  $<%=job.salary%></p>
-	<p>Posted Date:  <%=job.created_at%></p><br>
+	<p>Posted Date:  <%=job.created_at%></p>
+
+	<form action="/jobs/unapply/<%=job.id%>" method="POST">
+			<input id="hidden" type="hidden" name="_method" value="patch"> 
+	   		<input type="submit" value="Unapply">
+	</form><br>
 <%end%><br><br>
+
+
+
+
 
 
 

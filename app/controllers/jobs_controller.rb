@@ -46,7 +46,21 @@ class JobsController < ApplicationController
 		if Helpers.is_logged_in?(session) && session[:user_id] != nil
 			@job = Job.find_by(id: params[:id])
 			@user = User.find_by(id: session[:user_id])
-			@user.jobs << @job
+			if !@user.jobs.include?(@job)  #Only allows user to apply for a job which they haven't already applied for.
+				@user.jobs << @job
+				@user.save
+			end
+			redirect "/users/#{@user.id}"
+		else
+			redirect '/'
+		end
+	end
+
+	patch '/jobs/unapply/:id' do
+		if Helpers.is_logged_in?(session) && session[:user_id] != nil
+			@job = Job.find_by(id: params[:id])
+			@user = User.find_by(id: session[:user_id])
+			@user.jobs.delete(params[:id])
 			@user.save
 			redirect "/users/#{@user.id}"
 		else
