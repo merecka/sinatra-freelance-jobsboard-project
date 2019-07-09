@@ -38,6 +38,7 @@ class OwnersController < ApplicationController
 	  	end
 	end
 
+
   	get '/owners/:id' do
 		if Helpers.is_logged_in?(session)
 			@owner = Helpers.current_user(session)
@@ -46,5 +47,17 @@ class OwnersController < ApplicationController
 			redirect '/owners/login'
 		end
 	end
+
+	get '/owners/:slug' do
+		if Helpers.is_logged_in?(session) && session[:owner_id] != nil
+			@owner = Owner.find_by_slug(params[:slug])
+			erb :'/owners/show'
+		else
+			redirect '/owners/login'
+		end
+	end
+
+
+
 
 end

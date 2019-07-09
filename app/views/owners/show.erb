@@ -1,8 +1,8 @@
 <% if Helpers.is_logged_in?(session) && session[:owner_id] != nil%>
 
-<h1>Welcome, <%=@owner.owner_name.capitalize%>!</h1><br>
+<h1>Welcome, <%=@owner.owner_name.titleize%>!</h1><br>
 
-<h3>Your account info:</h3><br>
+<h3>Your Account Info:</h3><br>
 
 <p>Company Name:  <%=@owner.owner_name%></p>
 <p>Email:  <%=@owner.email%></p><br><br>

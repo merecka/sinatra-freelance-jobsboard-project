@@ -6,7 +6,7 @@
 	<p>Job Type:   <%=@job.job_hours%></p>
 	<p>Job Description:  <%=@job.job_description%></p>
 	<p>Salary:  $<%=@job.salary%></p>
-	<p>Posted Date:  <%=@job.created_at%></p><br>
+	<p>Posted Date:  <%=@job.created_at%></p>
 	<p>Last Updated: <%=@job.updated_at%></p><br>
 
 	<form action="/jobs/apply/<%=@job.id%>" method="POST">

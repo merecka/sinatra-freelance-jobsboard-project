@@ -1,6 +1,6 @@
 <% if Helpers.is_logged_in?(session) && session[:user_id] != nil%>
 
-<h1>Welcome, <%=@user.user_name.capitalize%>!</h1><br>
+<h1>Welcome, <%=@user.user_name.titleize%>!</h1><br>
 
 <h3>Your Account Info:</h3><br>
 
