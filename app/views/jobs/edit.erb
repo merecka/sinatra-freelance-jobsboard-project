@@ -1,0 +1,22 @@
+<h1>Update:   <%=@job.title%></h1><br>
+
+<h2>Current Job Details:</h2>
+	<p>Job Title:  <%=@job.title%></p>
+	<p>Company:  <%=@job.owner.owner_name%></p>
+	<p>Job Type:   <%=@job.job_hours%></p>
+	<p>Job Description:  <%=@job.job_description%></p>
+	<p>Salary:  $<%=@job.salary%></p><br>
+
+<h2>Modify Job Details:</h2>
+<form action="/jobs/<%=@job.id%>/edit" method="POST">
+  <input id="hidden" type="hidden" name="_method" value="patch">
+
+    Job Title:<br><input type="text" name="title" placeholder="Job Title:"><br>
+    <br>Job Type:<br><input type="radio" name="job_hours" value="Full Time"> Full Time</input>   
+    <input type="radio" name="job_hours" value="Part Time"> Part Time</input>
+    <br><br>Job Description:<br><input type="text" name="job_description" placeholder="Job Description:"><br>
+    <br>Salary:<br><input type="number" name="salary" placeholder="Annual Salary $:"><br>
+ 
+
+  <input type="submit" value="Save">
+</form>

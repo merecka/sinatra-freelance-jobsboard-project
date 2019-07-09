@@ -7,6 +7,7 @@
 	<p>Job Description:  <%=@job.job_description%></p>
 	<p>Salary:  $<%=@job.salary%></p>
 	<p>Posted Date:  <%=@job.created_at%></p><br>
+	<p>Last Updated: <%=@job.updated_at%></p><br>
 
 	<form action="/jobs/apply/<%=@job.id%>" method="POST">
 		<input id="hidden" type="hidden" name="_method" value="patch"> 
