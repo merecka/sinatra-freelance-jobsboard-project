@@ -18,7 +18,25 @@ class OwnersController < ApplicationController
 		else
 			redirect '/owners/signup'
 		end	
-  	end	
+  	end
+
+  	get '/owners/login'	do
+  		if Helpers.is_logged_in?(session)
+  			redirect "/owners/#{@owner.id}"
+	  	else
+	  		erb :'/owners/login'
+	  	end
+	end
+
+	post '/owners/login' do
+		@owner = Owner.find_by(owner_name: params[:owner_name])
+	  	if @owner && @owner.authenticate(params[:password])
+	  		session[:owner_id] = @owner.id
+	  		redirect "/owners/#{@owner.id}"  
+	  	else
+	  		redirect '/owners/login'
+	  	end
+	end
 
   	get '/owners/:id' do
 		if Helpers.is_logged_in?(session)

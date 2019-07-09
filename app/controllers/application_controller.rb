@@ -11,12 +11,13 @@ class ApplicationController < Sinatra::Base
 
   get '/' do
   	if Helpers.is_logged_in?(session) && session[:user_id] != nil
-  		redirect '/users/show'
+  		redirect "/users/#{session[:user_id]}"
   	elsif Helpers.is_logged_in?(session) && session[:owner_id] != nil
-  		redirect '/owners/show'
+  		redirect "/owners/#{session[:owner_id]}"
   	else
   		erb :index
   	end
+
   end
 
   get '/logout' do

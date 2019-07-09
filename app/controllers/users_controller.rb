@@ -20,6 +20,24 @@ class UsersController < ApplicationController
 		end	
   	end
 
+  	get '/users/login'	do
+  		if Helpers.is_logged_in?(session)
+  			redirect "/users/#{@owner.id}"
+	  	else
+	  		erb :'/users/login'
+	  	end
+	end
+
+	post '/users/login' do
+		@user = User.find_by(user_name: params[:user_name])
+	  	if @user && @user.authenticate(params[:password])
+	  		session[:user_id] = @user.id
+	  		redirect "/users/#{@user.id}"  
+	  	else
+	  		redirect '/users/login'
+	  	end
+	end
+
   	get '/users/:id' do
 		if Helpers.is_logged_in?(session)
 			@user = Helpers.current_user(session)
