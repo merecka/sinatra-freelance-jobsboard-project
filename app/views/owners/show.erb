@@ -1,10 +1,30 @@
-<h1>Welcome, <%=@owner.owner_name.capitalize%></h1>
+<% if Helpers.is_logged_in?(session) && session[:owner_id] != nil%>
 
-<h3>Here is your info:</h3><br>
+<h1>Welcome, <%=@owner.owner_name.capitalize%>!</h1><br>
+
+<h3>Your account info:</h3><br>
 
 <p>Company Name: <%=@owner.owner_name%></p>
 <p>Email: <%=@owner.email%></p><br><br>
 
+
+<h2>Here are your posted Jobs:</h2>
+<%@owner.jobs.each do |job|%>
+	<p>Job Title:  <%=job.title%></p>
+	<p>Job Type:   <%=job.job_hours%></p>
+	<p>Job Description:  <%=job.job_description%></p>
+	<p>Salary:  $<%=job.salary%></p>
+	<p>Posted Date:  <%=job.created_at%></p><br>
+<%end%>
+
+
+<form action="/jobs/new" method="GET">
+    <input type="submit" value="Create New Job">
+</form><br>
+
+
 <form action="/logout" method="GET">
     <input type="submit" value="Logout">
 </form>
+
+<%end%>

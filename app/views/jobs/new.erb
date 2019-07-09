@@ -1,0 +1,17 @@
+<% if Helpers.is_logged_in?(session) %>
+<h1>Welcome, <%=@owner.owner_name.capitalize%>!</h1>
+  <h2>Create a New Job Posting:</h2>
+
+  <form action='/jobs/new' method="POST">
+    Job Title:<br><input type="text" name="title" placeholder="Job Title:"><br>
+    <br>Job Type:<br><input type="radio" name="job_hours" value="Full Time"> Full Time</input>   
+    <input type="radio" name="job_hours" value="Part Time"> Part Time</input>
+    <br><br>Job Description:<br><input type="text" name="job_description" placeholder="Job Description:"><br>
+    <br>Salary:<br><input type="number" name="salary" placeholder="Annual Salary $:"><br>
+
+    <br><br><input type="submit" name="Submit">
+   </form>
+
+  <% else %>
+      <h1> You Must Be Logged in as an Owner to Create Jobs </h1>
+  <% end %>
