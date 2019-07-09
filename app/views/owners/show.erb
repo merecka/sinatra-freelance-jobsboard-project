@@ -4,8 +4,8 @@
 
 <h3>Your account info:</h3><br>
 
-<p>Company Name: <%=@owner.owner_name%></p>
-<p>Email: <%=@owner.email%></p><br><br>
+<p>Company Name:  <%=@owner.owner_name%></p>
+<p>Email:  <%=@owner.email%></p><br><br>
 
 
 <h2>Here are your posted Jobs:</h2>
@@ -14,7 +14,15 @@
 	<p>Job Type:   <%=job.job_hours%></p>
 	<p>Job Description:  <%=job.job_description%></p>
 	<p>Salary:  $<%=job.salary%></p>
-	<p>Posted Date:  <%=job.created_at%></p><br>
+	<p>Posted Date:  <%=job.created_at%></p>
+	<p>Applicants Applied:  <%job.users.each do |user|%>
+		<%=user.user_name%>,  <%=user.email%>, 
+		<%end%></p>
+
+	<form method="post" action="/jobs/<%=job.id%>/delete">
+	  <input id="hidden" type="hidden" name="_method" value="DELETE">
+	  <input type="submit" value="Delete Job">
+  	</form><br><br>
 <%end%>
 
 
@@ -22,6 +30,9 @@
     <input type="submit" value="Create New Job">
 </form><br>
 
+<form action="/jobs" method="GET">
+    <input type="submit" value="View All Posted Jobs">
+</form><br>
 
 <form action="/logout" method="GET">
     <input type="submit" value="Logout">

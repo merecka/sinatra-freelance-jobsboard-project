@@ -1,0 +1,20 @@
+<% if Helpers.is_logged_in?(session)%>
+
+<h1>Current Posted Jobs:</h1><br><br>
+
+<%Job.all.each do |job|%>
+	<p>Job Title:  <%=job.title%></p>
+	<p>Company:  <%=job.owner.owner_name%></p>
+	<form action="/jobs/<%=job.id%>" method="POST">
+  		<input id="hidden" type="hidden" name="_method" value="patch"> 
+		<input type="submit" value="View Job">
+	</form><br><br>
+<%end%><br>
+
+
+<form action="/" method="GET">
+    <input type="submit" value="Continue">
+</form><br>
+
+<%end%>
+

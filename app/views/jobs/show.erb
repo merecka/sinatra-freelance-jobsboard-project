@@ -1,0 +1,23 @@
+<% if Helpers.is_logged_in?(session)%>
+
+<h1>Job Details:</h1><br><br>
+	<p>Job Title:  <%=@job.title%></p>
+	<p>Company:  <%=@job.owner.owner_name%></p>
+	<p>Job Type:   <%=@job.job_hours%></p>
+	<p>Job Description:  <%=@job.job_description%></p>
+	<p>Salary:  $<%=@job.salary%></p>
+	<p>Posted Date:  <%=@job.created_at%></p><br>
+
+	<form action="/jobs/apply/<%=@job.id%>" method="POST">
+		<input id="hidden" type="hidden" name="_method" value="patch"> 
+   		<input type="submit" value="Apply">
+	</form><br>
+
+
+<form action="/" method="GET">
+    <input type="submit" value="Continue">
+</form><br>
+
+
+<%end%>
+

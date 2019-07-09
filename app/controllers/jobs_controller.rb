@@ -1,5 +1,22 @@
 class JobsController < ApplicationController
 
+	get '/jobs' do
+		if Helpers.is_logged_in?(session)
+			erb :'/jobs/all'
+		else
+			redirect '/'
+		end
+	end
+
+	patch '/jobs/:id' do
+		if Helpers.is_logged_in?(session)
+			@job = Job.find_by_id(params[:id])
+			erb :'/jobs/show'
+		else
+			redirect '/'
+		end
+	end
+
 	get '/jobs/new' do
 		if Helpers.is_logged_in?(session) && session[:owner_id] != nil
 			@owner = Owner.find_by(id: session[:owner_id])
@@ -25,4 +42,31 @@ class JobsController < ApplicationController
 		end
 	end
 
+	patch '/jobs/apply/:id' do
+		if Helpers.is_logged_in?(session) && session[:user_id] != nil
+			@job = Job.find_by(id: params[:id])
+			@user = User.find_by(id: session[:user_id])
+			@user.jobs << @job
+			@user.save
+			redirect "/users/#{@user.id}"
+		else
+			redirect '/'
+		end
+	end
+
+	delete '/jobs/:id/delete' do
+		if Helpers.is_logged_in?(session) && session[:owner_id] != nil
+			@owner = Owner.find_by(id: session[:owner_id])
+			@job = Job.find_by(id: params[:id])
+
+			if @job.owner_id == @owner.id
+				@job.destroy
+				redirect "/owners/#{@owner.id}"
+			else
+				redirect "/owners/#{@owner.id}"
+			end
+		else
+			redirect '/'
+		end
+  	end
 end

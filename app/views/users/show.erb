@@ -1,10 +1,29 @@
+<% if Helpers.is_logged_in?(session) && session[:user_id] != nil%>
+
 <h1>Welcome, <%=@user.user_name.capitalize%></h1><br>
 
-<h3>Here is your info:</h3><br>
+<h3>Your Account Info:</h3><br>
 
 <p>User Name: <%=@user.user_name%></p>
 <p>Email: <%=@user.email%></p><br><br>
 
+<form action="/jobs" method="GET">
+    <input type="submit" value="View All Posted Jobs">
+</form><br>
+
+<h2>Here are the Jobs you've applied to:</h2>
+<%@user.jobs.each do |job|%>
+	<p>Job Title:  <%=job.title%></p>
+	<p>Job Type:   <%=job.job_hours%></p>
+	<p>Job Description:  <%=job.job_description%></p>
+	<p>Salary:  $<%=job.salary%></p>
+	<p>Posted Date:  <%=job.created_at%></p><br>
+<%end%><br><br>
+
+
+
 <form action="/logout" method="GET">
     <input type="submit" value="Logout">
 </form>
+
+<%end%>
