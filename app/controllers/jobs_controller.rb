@@ -1,4 +1,8 @@
+require 'rack-flash'
+
 class JobsController < ApplicationController
+
+	use Rack::Flash
 
 	get '/jobs' do
 		if Helpers.is_logged_in?(session)
@@ -33,6 +37,7 @@ class JobsController < ApplicationController
 				@owner = Helpers.current_user(session)
 				@job.owner = @owner
 				@job.save
+				flash[:create] = "Successfully created job."
 				redirect "/owners/#{@owner.id}"
 			else
 				redirect '/jobs/new'
@@ -46,7 +51,7 @@ class JobsController < ApplicationController
 		if Helpers.is_logged_in?(session) && session[:owner_id] != nil
 			@job = Job.find_by(id: params[:id])
 			@owner = Owner.find_by(id: session[:owner_id])
-			if @job.owner = @owner
+			if @job.owner == @owner
 				erb :'/jobs/edit'
 			else
 				redirect "/owners/#{@owner.id}"
@@ -62,6 +67,7 @@ class JobsController < ApplicationController
 			@owner = Owner.find_by(id: session[:owner_id])
 			if params[:title] != "" && params[:job_hours] != nil && params[:job_description] != "" && params[:salary] != ""
 				@job.update(title: params[:title], job_hours: params[:job_hours], job_description: params[:job_description], salary: params[:salary])
+				flash[:edit] = "Successfully updated job."
 				redirect "/owners/#{@owner.id}"
 			else
 				redirect "/jobs/#{@job.id}/edit"

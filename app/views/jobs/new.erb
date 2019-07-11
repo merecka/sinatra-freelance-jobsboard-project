@@ -12,6 +12,10 @@
     <br><br><input type="submit" name="Submit">
    </form>
 
+	<% if flash.has?(:create %>
+	  <%= flash[:create] %>
+	<% end %>
+
   <% else %>
       <h1> You Must Be Logged in as an Owner to Create Jobs </h1>
   <% end %>
